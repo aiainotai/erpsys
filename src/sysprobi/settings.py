@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sysprolink',
+    'sysswkd',
+    'syswkmm',
+   
 ]
 
 MIDDLEWARE = [
@@ -45,7 +47,7 @@ ROOT_URLCONF = 'sysprobi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,10 +66,45 @@ WSGI_APPLICATION = 'sysprobi.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+
+    'Sysprodb': {
+        'ENGINE': 'mssql',
+        'NAME': 'Sysprodb',
+        'USER': 'cosmo',
+        'PASSWORD': 'cosmo',
+        'HOST': '192.168.10.9,1433',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
+    'SWKD': {
+        'ENGINE': 'mssql',
+        'NAME': 'SysproCompanySWKD',
+        'USER': 'cosmo',
+        'PASSWORD': 'cosmo',
+        'HOST': '192.168.10.9,1433',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
+    'WKMM': {
+        'ENGINE': 'mssql',
+        'NAME': 'SysproCompanyWKMM',
+        'USER': 'cosmo',
+        'PASSWORD': 'cosmo',
+        'HOST': '192.168.10.9,1433',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
 }
 
 
@@ -88,6 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+DATABASE_ROUTERS = ['sysprobi.db_router.SysproRouter']
+
 
 
 # Internationalization
