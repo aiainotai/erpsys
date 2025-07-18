@@ -1,5 +1,22 @@
 	<!--begin::Javascript-->
-		{% load static %}
+		{% load static %}s
+
+		<script>
+			window.chartData = {
+				years: {{ years|safe }},
+				sales: {{ sales|safe }},
+				
+
+			};
+		</script>
+		<script>
+			window.chartDataKT20 = {
+				datedata: {{ chart_categories_kt20|safe }},
+				salesvalue: {{ chart_data_kt20|safe }}
+			};
+		</script>
+
+		</script>
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 		<script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
 		<script src="{% static 'js/scripts.bundle.js' %}"></script>
@@ -20,7 +37,7 @@
 		<script src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script>
 		<!--end::Vendors Javascript-->
 		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="{% static 'js/widgets.bundle.js' %}"></script>
+		<script src="{% static 'js/jswidget.js' %}"></script>
 		<script src="{% static 'js/custom/widgets.js' %}"></script>
 		<script src="{% static 'js/custom/apps/chat/chat.js' %}"></script>
 		<script src="{% static 'js/custom/utilities/modals/users-search.js' %}"></script>

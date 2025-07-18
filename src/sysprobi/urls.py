@@ -23,8 +23,10 @@ from sysswkd import views as swkdview
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', swkdview.index, name='index'),
-    path('invmovement',swkdview.invmovements_view, name='invmovement'),
-    path('test',swkdview.testmove, name='test')
+    path('invmovement_test',swkdview.invmovements_view, name='invmovement_test'),
+    path('invmovement',swkdview.invmovements, name='invmovement'),
+    path('test',swkdview.testmove, name='test'),
+    path('sales-analytic',swkdview.sale_analytic, name='sales-analytic')
 ]
 
 

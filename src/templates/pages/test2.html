@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load custom_tags %}
+<html>
+<head>
+    <title>Inventory Movements</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; font-size: 14px; }
+        th, td { padding: 8px; border: 1px solid #ccc; }
+        th { background-color: #f4f4f4; }
+        .pagination { margin-top: 20px; font-size: 14px; }
+        .pagination a { margin: 0 5px; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<h2>Inventory Movements</h2>
+<p>Total Rows: {{ total_rows }} | Page {{ page }} of {{ total_pages }}</p>
+
+<form method="get">
+    <input type="text" name="search" value="{{ search }}" placeholder="Search any column...">
+    <label>Rows per page: <input type="number" name="per_page" value="{{ per_page }}" min="1" max="1000"></label>
+    <input type="hidden" name="page" value="1">
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            {% for col in columns %}
+                <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+            <tr>
+                {% for col in columns %}
+                    <td>{{ row|get_item:col }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="?page={{ page|add:-1 }}&per_page={{ per_page }}">« Prev</a>
+    {% endif %}
+
+    {% for p in page|make_range:total_pages %}
+        {% if p == page %}
+            <strong>{{ p }}</strong>
+        {% else %}
+            <a href="?page={{ p }}&per_page={{ per_page }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page < total_pages %}
+        <a href="?page={{ page|add:1 }}&per_page={{ per_page }}">Next »</a>
+    {% endif %}
+</div>
+
+</body>
+</html>
